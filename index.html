@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WEB VIDEO AULAS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+    </head>
+    <body>
+        <div class="container">
+            <h1>WEB VIDEO AULAS</h1>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="palavra" placeholder="Buscar por...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" id="buscar" type="button">Buscar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div id="dados">Aqui aparecerá os dados buscados...</div>
+        </div>
+        
+        <script>
+            function buscar(palavra)
+            {
+                var page = "busca.php";
+                $.ajax
+                        ({
+                            type: 'POST',
+                            dataType: 'html',
+                            url: page,
+                            beforeSend: function () {
+                                $("#dados").html("Carregando...");
+                            },
+                            data: {palavra: palavra},
+                            success: function (msg)
+                            {
+                                $("#dados").html(msg);
+                            }
+                        });
+            }
+            
+            
+            $('#buscar').click(function () {
+                buscar($("#palavra").val())
+            });
+        </script>
+        
+    </body>
+</html>
